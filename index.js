@@ -94,3 +94,47 @@ const mgrQuestions = [
         default: false
     }
 ]
+
+//function to Add intern into Employee w validation
+//push intern into new instance of employee
+const askIntern = (employee) => {
+    inquirer.prompt([
+        {
+            type: "input",
+            name: "school",
+            message: "Enter Intern's school name: ",
+            validate: validIntern => {
+                if (validIntern) {
+                    let letters = /^[A-Za-z]+$/;
+                    if (validIntern.match(letters)) {
+                        return true;
+                    } else {
+                        console.log("School name should be letters only!");
+                        return false;
+                    }
+                } else {
+                    console.log("Intern's school name is required!");
+                    return false;
+                }
+            }
+        },
+        {
+            type: 'confirm',
+            name: 'newEmployee',
+            message: 'Would you like to add more employees?',
+            default: false
+        }
+    ]).then(response => {
+        let emp = new intern(employee.id, employee.name, employee.email, response.school)
+        teamMembers.push(emp);
+        Role.push("Intern")
+        if (response.newEmployee) {
+            addnewEmp();
+        } else {
+            console.log("Team Complete!");
+            console.log(teamMembers);
+            createHtml(teamMembers);
+        }
+    });
+}
+
