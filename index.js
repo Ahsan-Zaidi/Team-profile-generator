@@ -138,3 +138,55 @@ const askIntern = (employee) => {
     });
 }
 
+//function to render html file after taking in Manager information
+const askManager = () => {
+    inquirer.prompt(mgrQuestions).then(employee => {
+        let emp = new Manager(employee.id, employee.name, employee.email, employee.officeNumber);
+        teamMembers.push(emp);
+        Role.push("Manager");
+        if (employee.newEmployee) {
+            addnewEmp();
+        } else {
+            createHtml(teamMembers);
+        }
+    })
+}
+
+//
+const askEngineer = (employee) => {
+    inquirer.prompt([
+        {
+            type: 'input',
+            name: 'Github',
+            message: 'Enter Employees Github Username',
+            validate: validGit => {
+                if (validGit) {
+                    return true;
+                } else {
+                    console.log('Github username is required!');
+                    return false;
+                }
+            }
+        },
+        {
+            type: 'confirm',
+            name: 'newEmployee',
+            message: 'Would you like to add any more employees?',
+            default: false
+        }
+    ]).then(response => {
+        let emp = new engineer(employee.id, employee.name, employee.email, response.github)
+        teamMembers.push(emp);
+        Role.push("Engineer")
+
+        if (response.newEmployee) {
+            addnewEmp();
+        } else {
+            console.log("Team Complete!");
+            console.log(teamMembers);
+            createHtml(teamMembers);
+        }
+    });
+}
+
+//function to add a new employee to db
