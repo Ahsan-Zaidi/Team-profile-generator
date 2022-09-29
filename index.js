@@ -152,7 +152,7 @@ const askManager = () => {
     })
 }
 
-//
+//function to ask for new Engineers as well as push them into emp
 const askEngineer = (employee) => {
     inquirer.prompt([
         {
@@ -270,6 +270,7 @@ const addnewEmp = () => {
     })
 }
 
+//HTML CARD PROPERTIES INTO FUNCTIONS TO RENDER HTML FILES
 const addManagerCard = (team) => {
     let e = new manager(team.id, team.name, team.email, team.officeNumber)
     return addEmployeecard(e)+`
@@ -309,5 +310,75 @@ const addEmployeecard = (e) => {
 }
 
 const addInternCard = (team) => {
-    
+    let e = new intern(team.id, team.name, team.email, team.school)
+
+    return addEmployeecard(e)+`
+            School: ${e.getSchool()}
+            </div>
+            </div>
+        </div>
+    </div>`
 }
+
+const renderHtml=(teamMembers)=>
+{
+    let starthtml=`<!DOCTYPE html>
+    <html lang="en">
+    
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+      <title>My Team Roster</title>
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+          integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
+    </head>
+    
+    <body>
+      <header class="jumbotron text-center my-team-header bg-info text-white">
+        <h1>My Team Roster</h1>
+      </header>
+      <main class="container ">
+        <div class="row justify-content-center">
+         `
+    let endHtml=` </main>
+    </body>
+   </html>`
+    for(let i=0;i<teamMembers.length;i++)
+    {
+        
+     if(Role[i]==="Intern")
+        {
+
+            starthtml+=addInternCard(teamMembers[i]);
+        }
+        else if(Role[i]==="Engineer")
+        {        
+            let e=new engineer("a","b","c","d")
+            starthtml+=addEngineerCard(teamMembers[i],e.getRole());
+        }
+        else 
+        {
+            let e=new manager("a","b","c","d")
+
+            starthtml+=addManagerCard(teamMembers[i],e.getRole());
+        }
+    }
+    return  starthtml+endHtml;
+}
+
+const createHtml = (teamMembers) => {
+    fs.writeFile("./dist/team.html", renderHtml(teamMembers), err => {
+        if (err) {
+            console.log(err);
+        };
+    });
+    console.log("END");
+}
+const init = () => {
+    askManager();
+}
+
+init();
