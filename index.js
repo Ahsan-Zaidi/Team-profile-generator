@@ -190,3 +190,82 @@ const askEngineer = (employee) => {
 }
 
 //function to add a new employee to db
+const addnewEmp = () => {
+    inquirer.prompt(
+        {
+            type: 'list',
+            name: 'role',
+            message: "Select Employees role: ",
+            choices: ['Engineer', 'Intern', 'None']
+        }
+    ).then(employee => {
+        if (employee.role == "None") {
+            createHtml(teamMembers);
+        } else {
+            inquirer.prompt([
+                {
+                    type: 'input',
+                    name: 'id',
+                    message: 'Enter Employees Id: ',
+                    validate: validID => {
+                        if (validID) {
+                            let id = parseInt(validID);
+                            if (Number.isInteger(id)) {
+                                return true;
+                            } else {
+                                console.log('Enter a digit 0-9 ONLY!');
+                                return false;
+                            }
+                        } else {
+                            console.log('Sorry Id is required');
+                            return false;
+                        }
+                    }
+                },
+                {
+                    type: 'input',
+                    name: 'name',
+                    message: 'Enter Employees Name: ',
+                    validate: validName => {
+                        if (validName) {
+                            let letters = /^[A-Za-z]+$/;
+                            if (validName.match(letters)) {
+                                return true;
+                            } else {
+                                console.log('Name property should be letters only!');
+                                return false;
+                            }
+                        } else {
+                            console.log("Employees Name is Required!");
+                            return false;
+                        }
+                    }
+                },
+                {
+                    type: 'input',
+                    name: 'email',
+                    message: 'Enter Employees email address: ',
+                    validate: validEmail => {
+                        if (validEmail) {
+                            let email = /\S+@\S+\.\S+/;
+                            if (validEmail.match(email)) {
+                                return true;
+                            } else {
+                                console.log("Invalid Email Address");
+                            }
+                        } else {
+                            console.log("Email is required");
+                            return false;
+                        }
+                    }
+                },
+            ]).then(function(emp) {
+                if (employee.role === "Engineer") {
+                    askEngineer(emp);
+                } else if (employee.role === "Intern") {
+                    askIntern(emp);
+                }
+            });
+        }
+    })
+}
