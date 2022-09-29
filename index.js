@@ -269,3 +269,45 @@ const addnewEmp = () => {
         }
     })
 }
+
+const addManagerCard = (team) => {
+    let e = new manager(team.id, team.name, team.email, team.officeNumber)
+    return addEmployeecard(e)+`
+                Office Number: ${e.getOfficeNumber()}
+            </div>
+        </div>
+    </div>
+</div> `
+}
+
+const addEngineerCard = (team) => {
+    let e = new engineer(team.id, team.name, team.email, team.github)
+    return addEmployeecard(e)+`
+                <div class="employee-entry border border-secondary bg-white">
+                    Github: <a href="https://github.com/${e.getGithub()}" target="_blank"?>${e.getGithub()}</a>
+                </div>
+            </div>
+        </div>
+    </div>`
+}
+
+const addEmployeecard = (e) => {
+    return ` <div class="col-lg-4 mb-4">
+    <div class="card employee-card">
+        <div class="card-header employee-header bg-info text-white">
+            <h4>${e.getName()}</h4>
+            <h5><i class="fas fa-user-graduate "></i> ${e.getRole()}</h5>
+        </div>
+        <div class="card-body bg-light">
+            <div class="employee-entry border border-secondary bg-white" >
+                ID: ${e.getId()}
+            </div>
+            <div class="employee-entry border-right border-left border-secondary bg-white">
+                Email: <a href="mailto:${e.getEmail()}">${e.getEmail()}</a>
+            </div>
+            <div class="employee-entry border border-secondary bg-white">`
+}
+
+const addInternCard = (team) => {
+    
+}
