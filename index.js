@@ -1,6 +1,6 @@
 //required dependencies
-const fs = require("fs");
-const inquirer = require('inquirer');
+import fs from 'fs';
+import inquirer from 'inquirer';
 
 //required Classes from libarary
 const manager = require('./lib/Manager');
