@@ -3,10 +3,10 @@ import fs from 'fs';
 import inquirer from 'inquirer';
 
 //required Classes from libarary
-const manager = require('./lib/Manager');
-const intern = require('./lib/Intern');
-const engineer = require('./lib/Engineer');
-const Employee = require('./lib/Employee');
+import manager from './lib/Manager.js';
+import intern from './lib/Intern.js';
+import engineer from './lib/Engineer.js';
+import Employee from './lib/Employee.js';
 
 //prompt to Enter Manager Information w validation
 const teamMembers = [];

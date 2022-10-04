@@ -1,4 +1,4 @@
-const Employee = require('../lib/Employee');
+import Employee from '../lib/Employee.js';
 
 //test to check if employee object is passed
 test('Can Create an Employee instance', () => {

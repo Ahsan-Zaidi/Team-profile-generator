@@ -1,4 +1,4 @@
-const Manager = require('../lib/Manager');
+import Manager from '../lib/Manager.js';
 
 //check if office number is taken into database
 test('Can set office number with contructor argument', () => {

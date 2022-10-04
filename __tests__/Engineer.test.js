@@ -1,4 +1,4 @@
-const Engineer = require('../lib/Engineer');
+import Engineer from '../lib/Engineer.js';
 
 //test to check if github account is added by constructor
 test("Can set github account via the contructor", () => {
