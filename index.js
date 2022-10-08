@@ -141,7 +141,7 @@ const askIntern = (employee) => {
 //function to render html file after taking in Manager information
 const askManager = () => {
     inquirer.prompt(mgrQuestions).then(employee => {
-        let emp = new Manager(employee.id, employee.name, employee.email, employee.officeNumber);
+        let emp = new manager(employee.id, employee.name, employee.email, employee.officeNumber);
         teamMembers.push(emp);
         Role.push("Manager");
         if (employee.newEmployee) {
